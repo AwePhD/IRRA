@@ -2,8 +2,8 @@ import logging
 import torch
 import torchvision.transforms as T
 from torch.utils.data import DataLoader
-from datasets.sampler import RandomIdentitySampler
-from datasets.sampler_ddp import RandomIdentitySampler_DDP
+from ..datasets.sampler import RandomIdentitySampler
+from ..datasets.sampler_ddp import RandomIdentitySampler_DDP
 from torch.utils.data.distributed import DistributedSampler
 
 from utils.comm import get_world_size

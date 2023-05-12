@@ -3,12 +3,12 @@ from torch.utils.data import Dataset
 import os.path as osp
 import logging
 import torch
-from utils.iotools import read_image
-from utils.simple_tokenizer import SimpleTokenizer
 from prettytable import PrettyTable
 import random
 import regex as re
 import copy
+from ..utils.iotools import read_image
+from ..utils.simple_tokenizer import SimpleTokenizer
 
 
 class BaseDataset(object):

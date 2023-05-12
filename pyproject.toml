@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "irra"
+version = "0.0.1"
+authors = [
+  { name="Jiang Ding", email="jianding@whu.edu.cn" },
+  { name="Ye Mang", email="yemang@whu.edu.cn" },
+]
+description = "IRRA testing"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/irra"]
+
+
+[project.urls]
+"Homepage" = "https://github.com/AwePhD/IRRA"
+
