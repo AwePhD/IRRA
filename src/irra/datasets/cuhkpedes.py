@@ -1,8 +1,8 @@
 import os.path as op
 from typing import List
 
-from utils.iotools import read_json
-from bases import BaseDataset
+from ..utils.iotools import read_json
+from .bases import BaseDataset
 
 
 class CUHKPEDES(BaseDataset):
@@ -17,11 +17,11 @@ class CUHKPEDES(BaseDataset):
     Dataset statistics:
     ### identities: 13003
     ### images: 40206,  (train)  (test)  (val)
-    ### captions: 
+    ### captions:
     ### 9 images have more than 2 captions
     ### 4 identity have only one image
 
-    annotation format: 
+    annotation format:
     [{'split', str,
       'captions', list,
       'file_path', str,
@@ -61,7 +61,7 @@ class CUHKPEDES(BaseDataset):
                 val_annos.append(anno)
         return train_annos, test_annos, val_annos
 
-  
+
     def _process_anno(self, annos: List[dict], training=False):
         pid_container = set()
         if training:

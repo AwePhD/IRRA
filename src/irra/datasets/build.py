@@ -6,7 +6,7 @@ from ..datasets.sampler import RandomIdentitySampler
 from ..datasets.sampler_ddp import RandomIdentitySampler_DDP
 from torch.utils.data.distributed import DistributedSampler
 
-from utils.comm import get_world_size
+from ..utils.comm import get_world_size
 
 from .bases import ImageDataset, TextDataset, ImageTextDataset, ImageTextMLMDataset
 
@@ -74,7 +74,7 @@ def build_dataloader(args, tranforms=None):
     num_workers = args.num_workers
     dataset = __factory[args.dataset_name](root=args.root_dir)
     num_classes = len(dataset.train_id_container)
-    
+
     if args.training:
         train_transforms = build_transforms(img_size=args.img_size,
                                             aug=args.img_aug,

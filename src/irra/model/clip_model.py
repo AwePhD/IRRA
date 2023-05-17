@@ -301,7 +301,7 @@ class VisionTransformer(nn.Module):
 
         if self.proj is not None:
             x = x @ self.proj
-    
+
         return x
 
 
@@ -441,8 +441,8 @@ class CLIP(nn.Module):
         # return logits_per_image, logits_per_text
 
         return image_features, text_features
-    
-    
+
+
     def load_param(self, state_dict):
         # 将pretrained_dict里不属于model_dict的键剔除掉
         param_dict =  {k: v for k, v in state_dict.items() if k in self.state_dict()}
@@ -461,7 +461,7 @@ class CLIP(nn.Module):
             except:
                 print(f'===========================ERROR occur in copy {k}, {v.shape}=========================')
                 print('shape do not match in k :{}: param_dict{} vs self.state_dict(){}'.format(k, v.shape, self.state_dict()[k].shape))
-    
+
 
 
 def resize_pos_embed(posemb, posemb_new, hight, width):
@@ -512,7 +512,7 @@ def build_CLIP_from_openai_pretrained(name: str, image_size: Union[int, Tuple[in
     ----------
     name : str
         A model name listed by `clip.available_models()`, or the path to a model checkpoint containing the state_dict
-    
+
     image_size: Union[int, Tuple[int, int]]
         Input image size, in Re-ID task, image size commonly set to 384x128, instead of 224x224
 
@@ -574,13 +574,13 @@ def build_CLIP_from_openai_pretrained(name: str, image_size: Union[int, Tuple[in
     model_cfg = {
         'embed_dim': embed_dim,
         'image_resolution': image_resolution,
-        'vision_layers': vision_layers, 
-        'vision_width': vision_width, 
+        'vision_layers': vision_layers,
+        'vision_width': vision_width,
         'vision_patch_size': vision_patch_size,
-        'context_length': context_length, 
-        'vocab_size': vocab_size, 
-        'transformer_width': transformer_width, 
-        'transformer_heads': transformer_heads, 
+        'context_length': context_length,
+        'vocab_size': vocab_size,
+        'transformer_width': transformer_width,
+        'transformer_heads': transformer_heads,
         'transformer_layers': transformer_layers
     }
 

@@ -1,9 +1,9 @@
 import logging
 import time
 import torch
-from utils.meter import AverageMeter
-from utils.metrics import Evaluator
-from utils.comm import get_rank, synchronize
+from ..utils.meter import AverageMeter
+from ..utils.metrics import Evaluator
+from ..utils.comm import get_rank, synchronize
 from torch.utils.tensorboard import SummaryWriter
 from prettytable import PrettyTable
 
@@ -74,7 +74,7 @@ def do_train(start_epoch, args, model, train_loader, evaluator, optimizer,
                         info_str += f", {k}: {v.avg:.4f}"
                 info_str += f", Base Lr: {scheduler.get_lr()[0]:.2e}"
                 logger.info(info_str)
-        
+
         tb_writer.add_scalar('lr', scheduler.get_lr()[0], epoch)
         tb_writer.add_scalar('temperature', ret['temperature'], epoch)
         for k, v in meters.items():

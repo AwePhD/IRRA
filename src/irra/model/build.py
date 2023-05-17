@@ -1,4 +1,4 @@
-import objectives
+from . import objectives
 from .clip_model import Transformer, QuickGELU, LayerNorm, build_CLIP_from_openai_pretrained, convert_weights
 import numpy as np
 import torch
@@ -16,7 +16,7 @@ class IRRA(nn.Module):
         self.base_model, base_cfg = build_CLIP_from_openai_pretrained(args.pretrain_choice, args.img_size, args.stride_size)
         self.embed_dim = base_cfg['embed_dim']
 
-        self.logit_scale = torch.ones([]) * (1 / args.temperature) 
+        self.logit_scale = torch.ones([]) * (1 / args.temperature)
 
         if 'id' in args.loss_names:
             self.classifier = nn.Linear(self.embed_dim, self.num_classes)
@@ -32,7 +32,7 @@ class IRRA(nn.Module):
                                                        heads=self.embed_dim //
                                                        64)
             scale = self.cross_modal_transformer.width**-0.5
-            
+
             self.ln_pre_t = LayerNorm(self.embed_dim)
             self.ln_pre_i = LayerNorm(self.embed_dim)
             self.ln_post = LayerNorm(self.embed_dim)
@@ -63,8 +63,8 @@ class IRRA(nn.Module):
         loss_names = self.args.loss_names
         self.current_task = [l.strip() for l in loss_names.split('+')]
         print(f'Training Model with {self.current_task} tasks')
-    
-    
+
+
     def cross_former(self, q, k, v):
         x = self.cross_attn(
                 self.ln_pre_t(q),
@@ -102,13 +102,13 @@ class IRRA(nn.Module):
 
         if 'itc' in self.current_task:
             ret.update({'itc_loss':objectives.compute_itc(i_feats, t_feats, logit_scale)})
-        
+
         if 'sdm' in self.current_task:
             ret.update({'sdm_loss':objectives.compute_sdm(i_feats, t_feats, batch['pids'], logit_scale)})
 
         if 'cmpm' in self.current_task:
             ret.update({'cmpm_loss':objectives.compute_cmpm(i_feats, t_feats, batch['pids'])})
-        
+
         if 'id' in self.current_task:
             image_logits = self.classifier(i_feats.half()).float()
             text_logits = self.classifier(t_feats.half()).float()
@@ -121,7 +121,7 @@ class IRRA(nn.Module):
             text_precision = (text_pred == batch['pids']).float().mean()
             ret.update({'img_acc': image_precision})
             ret.update({'txt_acc': text_precision})
-        
+
         if 'mlm' in self.current_task:
             mlm_ids = batch['mlm_ids']
 
